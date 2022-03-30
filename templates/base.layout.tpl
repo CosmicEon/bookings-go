@@ -91,6 +91,7 @@
   <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
   <script src="https://unpkg.com/notie"></script>
   <script src="sweetalert2.all.min.js"></script>
+  <script src="/static/js/app.js"></script>
 
   <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
@@ -146,112 +147,6 @@
     notify("{{.}}", "error")
     {{end}}
 
-    function Prompt() {
-      const toast = function(options) {
-        const {
-          message = "",
-          icon = "success",
-          position = "top-end",
-        } = options;
-
-        const Toast = Swal.mixin({
-          toast: true,
-          position,
-          icon,
-          title: message,
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-          },
-        });
-
-        Toast.fire();
-      }
-      const success = function(options) {
-        const {
-          title = "",
-          message = "",
-          footer = "",
-        } = options;
-
-        Swal.fire({
-          title,
-          footer,
-          text: message,
-          icon: 'success',
-        });
-      }
-      const error = function(options) {
-        const {
-          title = "",
-          message = "",
-          footer = "",
-        } = options;
-
-        Swal.fire({
-          title,
-          footer,
-          text: message,
-          icon: 'error',
-        });
-      }
-      async function custom(options) {
-        const {
-          message = "",
-          title = "",
-        } = options;
-
-
-        const { value: formValues } = await Swal.fire({
-          title,
-          html: message,
-          backdrop: false,
-          focusConfirm: false,
-          showCancelButton: true,
-          willOpen: () => {
-            if (options.willOpen !== undefined) {
-              options.willOpen();
-            }
-          },
-          didOpen: () => {
-            if (options.didOpen !== undefined) {
-              options.didOpen();
-            }
-          },
-          preConfirm: () => {
-            return [
-              document.getElementById('start-date-modal').value,
-              document.getElementById('end-date-modal').value
-            ]
-          },
-        });
-
-        if (formValues && options.callback !== undefined) {
-          if (formValues.dismiss !== Swal.DismissReason.cancel) {
-            if (formValues.value !== "") {
-              // if (options.callback !== undefined) {
-              options.callback(formValues);
-              // }
-            } else {
-              options.callback(false);
-            }
-          } else {
-            options.callback(false);
-          }
-        }
-      }
-
-      return {
-        toast,
-        success,
-        error,
-        custom,
-      }
-    }
   </script>
 
 

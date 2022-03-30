@@ -50,7 +50,7 @@ func TestRenderTamplate(t *testing.T) {
 }
 
 func TestNewTemplate(t *testing.T) {
-	NewTemplate(app)
+	NewRenderer(app)
 }
 
 func TestCreateTemplateCache(t *testing.T) {

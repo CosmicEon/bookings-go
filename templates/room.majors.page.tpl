@@ -40,21 +40,7 @@
 
 {{define "js"}}
 <script>
-
-    document.getElementById("check-availability-id").addEventListener("click", function() {
-      let html = `
-      <form if="check-availability-form" class="needs-validation" action="/reservation" method="GET" novalidate>
-        <div id="reservation-dates-modal" class="row">
-          <div class="col">
-            <input type="text" name="start_date" id="start-date-modal" class="form-control" placeholder="Arrival date" required disabled>
-          </div>
-          <div class="col">
-            <input type="text" name="end_date" id="end-date-modal" class="form-control" placeholder="Departure date" required disabled>
-          </div>
-        </div>
-      </form>
-    `
-      attention.custom({ message: html });
-    });
+  const csrf_token = "{{.CSRFToken}}";
+  RoomAvailabilityPrompt(csrf_token, "2");
 </script>
 {{end}}

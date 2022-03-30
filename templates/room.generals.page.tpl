@@ -40,53 +40,7 @@
 
 {{define "js"}}
 <script>
-
-  document.getElementById("check-availability-id").addEventListener("click", function() {
-    let form;
-    let html = `
-      <form if="check-availability-form" class="needs-validation" action="/reservation" method="GET" novalidate>
-        <div id="reservation-dates-modal" class="row">
-          <div class="col">
-            <input type="text" name="start_date" id="start-date-modal" class="form-control" placeholder="Arrival date" required disabled>
-          </div>
-          <div class="col">
-            <input type="text" name="end_date" id="end-date-modal" class="form-control" placeholder="Departure date" required disabled>
-          </div>
-        </div>
-      </form>
-    `
-    attention.custom({
-      message: html,
-      title: "Chose your dates",
-      willOpen: () => {
-        const elem = document.getElementById("reservation-dates-modal");
-        new DateRangePicker(elem, {
-          format: "dd-mm-yyyy",
-          showOnFocus: true,
-        });
-      },
-      didOpen: () => {
-        document.getElementById('start-date-modal').removeAttribute("disabled");
-        document.getElementById('end-date-modal').removeAttribute("disabled");
-      },
-      willClose: () => {
-        form = document.getElementById("check-availability-form");
-      },
-      callback: (result) => {
-        // const form = document.getElementById("check-availability-form");
-        const formData = new FormData(form);
-        formData.append("csrf_token", "{{.CSRFToken}}")
-
-        fetch("/search-availability-json", {
-          method: "POST",
-          body: formData,
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-          });
-      }
-    });
-  });
+  const csrf_token = "{{.CSRFToken}}";
+  RoomAvailabilityPrompt(csrf_token, "1");
 </script>
 {{end}}

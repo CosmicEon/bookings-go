@@ -51,7 +51,7 @@ func getRoutes() http.Handler {
 	app.TemplateCache = tc
 	app.UseCache = true
 
-	render.NewTemplate(&app)
+	render.NewRenderer(&app)
 
 	repo := NewRepo(&app)
 	NewHandlers(repo)
@@ -72,9 +72,9 @@ func getRoutes() http.Handler {
 	mux.Post("/search-availability", Repo.PostSearchAvailability)
 	mux.Post("/search-availability-json", Repo.SearchAvailabilityJSON)
 
-	mux.Get("/make-reservation", Repo.Reservation)
-	mux.Post("/make-reservation", Repo.PostReservation)
-	mux.Get("/reservation-summary", Repo.ReservationSummary)
+	mux.Get("/make-reservation", Repo.MakeReservation)
+	mux.Post("/make-reservation", Repo.PostMakeReservation)
+	mux.Get("/reservation-summary", Repo.MakeReservationSummary)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
